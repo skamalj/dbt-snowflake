@@ -1,0 +1,9 @@
+{{ 
+  generic_coalesce(
+    'test',  
+    'CustomerPhone',            
+    'CustomerEmail',            
+    'CustomerID',        
+    'EffectiveDate'
+  ) 
+}}
