@@ -18,13 +18,13 @@ SELECT
   {%- for column in table_a_column_names %}
     COALESCE(
       c.{{ column }},
-      LEAD(c.{{ column }}) OVER (PARTITION BY a.KeyValue ORDER BY a.EffectiveDate DESC)
+      LEAD(c.{{ column }}) IGNORE NULLS OVER (PARTITION BY a.KeyValue ORDER BY a.EffectiveDate DESC)
     ) AS {{ column }}_A{{ "," }}
   {% endfor %}
   {%- for column in table_b_column_names %}
     COALESCE(
       e.{{ column }},
-      LEAD(e.{{ column }}) OVER (PARTITION BY a.KeyValue ORDER BY a.EffectiveDate DESC)
+      LEAD(e.{{ column }}) IGNORE NULLS OVER (PARTITION BY a.KeyValue ORDER BY a.EffectiveDate DESC)
     ) AS {{ column }}_B{{ "," if not loop.last }}
   {% endfor %}
 FROM AllKeysAndDates a
